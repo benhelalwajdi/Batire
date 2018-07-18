@@ -1,9 +1,6 @@
 <?php
 include '../config/config.php';
 session_start();
-include('config.php');
-session_start();
-
 $user_check = $_SESSION['login_user'];
 $site=$_SESSION["site"] ;
 if(!isset($_SESSION['login_user'])){
@@ -40,7 +37,7 @@ if($count == 1) {
 session_start();
 $_SESSION['login_user'] = $myusername;
 $_SESSION["site"] = "1" ;
-    header("location: welcome1.php");
+header("location: welcome1.php");
 echo "<script>console.log('Administrateur');</script>";
 }else if($count2==1){
 session_start();
@@ -59,11 +56,10 @@ $error = "Your Login Name or Password is invalid";
 }
 }
 }else{
-    header("location:welcome".$site.".php");
+    header("location: welcome".$site.".php");
 }
 ?>
-<html>
-
+<html lang="en">
 <head>
     <title>Login Page</title>
 
@@ -101,10 +97,7 @@ $error = "Your Login Name or Password is invalid";
             <div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php echo $error; ?></div>
 
         </div>
-
     </div>
-
 </div>
-
 </body>
 </html>
