@@ -1,7 +1,16 @@
 <?php
 include '../config/session.php' ;
 $site=$_SESSION["site"] ;
-$var = "http://localhost:8888/Batire/vue/welcome" . $site . ".php";
+
+if($site >= 1){
+    if($site==3){
+    $var = "http://localhost:8888/Batire/vue/welcome" . $site . ".php";
+    echo "<script>console.log( '" . $site . "' );</script>";
+    header("location : ".$var);
+    }else {
+        Redirect("http://localhost:8888/Batire/vue/welcome" . $site . ".php", false);
+    }
+}
 function Redirect($url, $permanent = false)
 {
     if (headers_sent() === false)
@@ -10,7 +19,6 @@ function Redirect($url, $permanent = false)
     }
     exit();
 }
-Redirect("http://localhost:8888/Batire/vue/welcome" . $site . ".php", false);
 ?>
 <html>
 <head>
