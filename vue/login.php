@@ -30,8 +30,17 @@ $sql3 = "SELECT idEmp FROM Employe WHERE cin = '$myusername' and pass = '$mypass
 $result3 = mysqli_query($db,$sql3);
 $row3 = mysqli_fetch_array($result3,MYSQLI_ASSOC);
 $active3 = $row3['active'];
-$count3 = mysqli_num_rows($result3);
 
+$sql_query="SELECT * FROM Employe WHERE cin = '$myusername' and pass = '$mypassword'";
+$result_set=mysqli_query($db,$sql_query);
+
+while($row=mysqli_fetch_row($result_set))
+{
+    echo "<script>console.log('".$row[0]."');</script>";
+    $_SESSION['idEmp']= $row[0];
+}
+
+$count3 = mysqli_num_rows($result3);
 // If result matched $myusername and $mypassword, table row must be 1 row
 if($count == 1) {
 session_start();
