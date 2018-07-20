@@ -1,9 +1,27 @@
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Ajouter un dossier </title>
-    <link rel="stylesheet" href="../Css/style.css" type="text/css" />
-</head>
+<?php
+require('../../vue/template.php');
+?>
+<script type="text/javascript">
+    function Verifcin(input) {
+        if (input.value.length == 0) {
+
+            alert('Vous devez saisir le champ Nom : ! ');
+            input.focus();
+
+        }
+
+        if (input.value.length < 8) {
+            alert('Vous ne pouvez pas saisir moins de 8 chiffres.! ');
+            input.focus();
+        }
+
+        if (input.value.length > 8) {
+            alert('Vous ne pouvez pas saisir plus de de 8 chiffres.! ');
+            input.focus();
+        }
+    }
+</script>
+
 <body>
 <center>
 
@@ -27,14 +45,14 @@
                     </tr>
                     <tr>
                         <td>
-                            <input type="text" placeholder="Numéro de dossier" name="num" required="" "/>
+                            <input type="number" placeholder="Numéro de dossier" name="num" required="" "/>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <select name="cin" onchange="yesnoCheck(this);">
-                                <option value="0" selected>Selectionné une seul ou multiple carte identité</option>
-                                <option value="1">un seul carte identite</option>
+                                <option value="0" >Selectionné une seul ou multiple carte identité</option>
+                                <option value="1" >un seul carte identite</option>
                                 <option value="2">deux carte identite</option>
                                 <option value="3">trois carte identite</option>
                                 <option value="4">quatre carte identite</option>
@@ -44,27 +62,27 @@
                             </br>
                             <div id="ifYes1" style="display: none;">
                                 <label for="car1">Carte identité 1 : </label>
-                                <input type="text" placeholder="Carte indentité 1" id="car1" name="car1" /><br />
+                                <input type="number" placeholder="Carte indentité 1" id="car1" name="car1" onblur="Verifcin(this)"/><br />
                             </div>
                             <div id="ifYes2" style="display: none;">
                                 <label for="car2">Carte identité 2 : </label>
-                                <input type="text" placeholder="Carte indentité 2" id="car2" name="car2" /><br />
+                                <input type="number" placeholder="Carte indentité 2" id="car2" name="car2" onblur="Verifcin(this)"/><br />
                             </div>
                             <div id="ifYes3" style="display: none;">
                                 <label for="car3">Carte identité 3 : </label>
-                                <input type="text" placeholder="Carte indentité 3" id="car3" name="car3" /><br />
+                                <input type="number" placeholder="Carte indentité 3" id="car3" name="car3" onblur="Verifcin(this)"/><br />
                             </div>
                             <div id="ifYes4" style="display: none;">
                                 <label for="car4">Carte identité 4 : </label>
-                                <input type="text" placeholder="Carte indentité 4" id="car4" name="car4" /><br />
+                                <input type="number" placeholder="Carte indentité 4" id="car4" name="car4" onblur="Verifcin(this)"/><br />
                             </div>
                             <div id="ifYes5" style="display: none;">
                                 <label for="car5">Carte identité 5 : </label>
-                                <input type="text" placeholder="Carte indentité 5" id="car5" name="car5" /><br />
+                                <input type="number" placeholder="Carte indentité 5" id="car5" name="car5" onblur="Verifcin(this)"/><br />
                             </div>
                             <div id="ifYes6" style="display: none;">
                                 <label for="car6">Carte identité 6 : </label>
-                                <input type="text" placeholder="Carte indentité 6" id="car6" name="car6" /><br />
+                                <input type="number" placeholder="Carte indentité 6" id="car6" name="car6" onblur="Verifcin(this)"/><br />
                             </div>
                             <script type="text/javascript">
                                 function yesnoCheck(that) {
@@ -176,15 +194,8 @@ if(isset($_POST['btn-save']))
     echo "<script>console.log('idClient ".$idClient."');</script>";
     echo "<script>console.log('id emp ".$idEmploye."');</script>";
 
-    // variables for input data
 
-    // sql query for inserting data into database
-    /*
-     * 	idDoc 	description 	etat 	IdDocClient 	idEmp 	Date_Creation 	Date_Mod 	NumDoc
-     * */
     $sql = "INSERT INTO Document ". "(description,etat,idEmp ,NumDoc) VALUES('".$desc."','".$etat."','".$idEmploye."','".$Num."')";
-
-    //INSERT INTO Document (description,etat,idEmp ,NumDoc) VALUES('dasd','1','1','123')
 
     $retval = mysqli_query($db, $sql);
 
@@ -400,11 +411,6 @@ if(isset($_POST['btn-save']))
                 " dans l historique avec l employe d id ".$idEmploye." ');</script>";
         }
     }
-
     // sql query for inserting data into database
-
-
-
-
 }
 ?>
