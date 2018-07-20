@@ -1,7 +1,8 @@
 <?php
 include_once '../../config/config.php';
 include '../../config/session.php' ;
-
+include '../../log.php';
+write_log("List Document by".$_SESSION['idEmp'],"/Applications/MAMP/htdocs/Batire/log.log");
 ?>
 
 <html >
@@ -35,7 +36,7 @@ include '../../config/session.php' ;
                 </tr>
 
                 <th>Description </th>
-
+                <th>Numero de dossier </th>
                 <th colspan="2">Operations</th>
 
                 </tr>
@@ -47,6 +48,7 @@ include '../../config/session.php' ;
                     ?>
                     <tr>
                         <td><?php echo $row[1]; ?></td>
+                        <td><?php echo $row[7]; ?></td>
                         <td align="center"><a href="javascript:edit_id('<?php echo $row[0]; ?>')">edit Doc</a></td>
                     </tr>
                     <?php

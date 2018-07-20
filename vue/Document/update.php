@@ -2,7 +2,7 @@
 include_once '../../config/config.php';
 include '../../config/session.php';
 include '../../log.php';
-write_log("Update page ","/Applications/MAMP/htdocs/Batire/log.log");
+write_log("Update Document by EMP with id : ".$_SESSION['idEmp'],"/Applications/MAMP/htdocs/Batire/log.log");
 if(isset($_GET['editDoc_id']))
 {
     $sql_query="SELECT * FROM Document WHERE idDoc=".$_GET['editDoc_id'];
@@ -18,17 +18,16 @@ if(isset($_POST['btn-update']))
     // variables for input data
 
     // sql query for update data into database
-    /*
-     * $sql = "INSERT INTO Document ". "(description,etat,idClient,idEmp)".
-            "VALUES('".$desc."','".$etat."','".$idClient."','".$idEmploye."')";
-
-     *
-     * */
     $date = date('Y-m-d\TH:i:sP', time());
 
-    echo "<script>console.log('Ajout avec success de dossie d id ".$date." ');</script>";
+
+    echo "<script>console.log('Modifier avec success de dossie a ".$date." ');</script>";
+    write_log("Modifier avec success de dossie a ".$date,"/Applications/MAMP/htdocs/Batire/log.log");
+
+
     $sql_query = "UPDATE Document SET description='$first_name',etat='$last_name',Date_Mod='$date' WHERE idDoc=".$_GET['editDoc_id'];
     // sql query for update data into database
+
     // sql query execution function
     if(mysqli_query($db,$sql_query))
     {
@@ -44,10 +43,14 @@ if(isset($_POST['btn-update']))
         $retval1 = mysqli_query($db, $sql1);
 
         if (! $retval1){
-            echo "<script>console.log('il y a un error au niveau de l ajout ');</script>";
+            echo "<script>console.log('il y a un error au niveau de l ajout de historique');</script>";
+            write_log("il y a un error au niveau de l ajout de historique by  ".$_SESSION['idEmp'],"/Applications/MAMP/htdocs/Batire/log.log");
         }else{
-            echo "<script>console.log('Ajout avec success de dossie d id ".$idDoc.
-                " dans l historique avec l employe d id ".$idEmploye." ');</script>";
+            echo "<script>console.log('Ajout avec success de dossie ".
+                " dans l historique avec l employe d id  ".$_SESSION['idEmp']." ');</script>";
+            write_log("Ajout avec success de dossie ".
+                " dans l historique avec l employe d id ".$_SESSION['idEmp'],"/Applications/MAMP/htdocs/Batire/log.log");
+
         }
 
     }
@@ -98,7 +101,8 @@ if(isset($_POST['btn-cancel']))
                                 <select name="etat"  style="margin-left: 150px;">
                                     <option value="1">en attende</option>
                                     <option value="2">en traitement</option>
-                                    <option value="3">Dossie avec probleme</option>
+                                    <option value="3">Termine avec succée</option>
+                                    <option value="4">Dossie avec probleme</option>
                                 </select>
                             </td>
                         </center>

@@ -1,5 +1,6 @@
 <?php
 define("DEFAULT_LOG","/Applications/MAMP/htdocs/Batire/log.log");
+
 function write_log($message, $logfile='') {
     // Determine log file
     if($logfile == '') {

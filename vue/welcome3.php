@@ -2,7 +2,6 @@
 include '../config/session.php' ;
 $site=$_SESSION["site"] ;
 echo "<script>console.log('".$_SESSION['idEmp'] ."');</script>";
-
 if($site >= 1){
     if($site==3){
     $var = "http://localhost:8888/Batire/vue/welcome" . $site . ".php";
@@ -28,7 +27,7 @@ function Redirect($url, $permanent = false)
 </head>
 <br>
 <h1>Welcome Employe </h1>
-<a href="Document/listClient.php">Ajouter un dossier</a></br>
+<a href="Document/addDoc.php">Ajouter un dossier</a></br>
 <a href="Document/listDoc.php">List des dossier</a>
 <h2><a href = "logout.php">Sign Out</a></h2>
 </body>
