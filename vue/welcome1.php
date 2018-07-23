@@ -26,12 +26,16 @@ function Redirect($url, $permanent = false)
 <html>
 
 <head>
-    <title>Welcome Admin </title>
+    <title>Welcome Administrateur </title>
 </head>
 
 <body>
 <h1>Welcome Admin
 </h1>
-<h2><a href = "logout.php">Sign Out</a></h2>
+<h3><a href="./Employe/addEmp.php">Ajout d'un employer</a></h3>
+<h3><a href="Employe/listEmp.php">liste des employer</a></h3>
+<h3><a>Consulter les historique </a></h3>
+<h3><a href="DownloadLog.php">telecharger le fichier log</a></h3>s
+<h><a href = "logout.php">Sign Out</a></h>
 </body>
 </html>

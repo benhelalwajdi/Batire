@@ -3,110 +3,97 @@ include '../config/config.php';
 session_start();
 $user_check = $_SESSION['login_user'];
 $site=$_SESSION["site"] ;
+
 if(!isset($_SESSION['login_user'])){
-if($_SERVER["REQUEST_METHOD"] == "POST") {
+ if($_SERVER["REQUEST_METHOD"] == "POST") {
 // username and password sent from form
-
-$myusername = mysqli_real_escape_string($db,$_POST['username']);
-$mypassword = mysqli_real_escape_string($db,$_POST['password']);
-
+    $myusername = mysqli_real_escape_string($db,$_POST['username']);
+    $mypassword = mysqli_real_escape_string($db,$_POST['password']);
 
 //test si les donne recuperer se sont des donnees de Admin
-$sql = "SELECT idAdmin FROM Admin WHERE cin = '$myusername' and pass = '$mypassword'";
-$result = mysqli_query($db,$sql);
-$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-$active = $row['active'];
-$count = mysqli_num_rows($result);
-
-//test si les donne recuperer se sont des donnees de Client
-$sql2 = "SELECT idclient FROM Client WHERE cin = '$myusername' and pass = '$mypassword'";
-$result2 = mysqli_query($db,$sql2);
-$row2 = mysqli_fetch_array($result2,MYSQLI_ASSOC);
-$active2 = $row2['active'];
-$count2 = mysqli_num_rows($result2);
-
-//test si les donne recuperer se sont des donnees de l'employe
-$sql3 = "SELECT idEmp FROM Employe WHERE cin = '$myusername' and pass = '$mypassword'";
-$result3 = mysqli_query($db,$sql3);
-$row3 = mysqli_fetch_array($result3,MYSQLI_ASSOC);
-$active3 = $row3['active'];
-
-$sql_query="SELECT * FROM Employe WHERE cin = '$myusername' and pass = '$mypassword'";
-$result_set=mysqli_query($db,$sql_query);
-
-while($row=mysqli_fetch_row($result_set))
-{
-    echo "<script>console.log('".$row[0]."');</script>";
-    $_SESSION['idEmp']= $row[0];
-}
-
-$count3 = mysqli_num_rows($result3);
-// If result matched $myusername and $mypassword, table row must be 1 row
-if($count == 1) {
-session_start();
-$_SESSION['login_user'] = $myusername;
-$_SESSION["site"] = "1" ;
-header("location: welcome1.php");
-echo "<script>console.log('Administrateur');</script>";
-}else if($count2==1){
-session_start();
-$_SESSION['login_user'] = $myusername;
-$_SESSION["site"] = "2" ;
-header("location: welcome2.php");
-echo "<script>console.log('Client');</script>";
-}else if($count3==1){
-session_start();
-$_SESSION['login_user'] = $myusername;
-$_SESSION["site"] = "3" ;
-header("location: welcome3.php");
-echo "<script>console.log('Employe');</script>";
-}else{
-$error = "Your Login Name or Password is invalid";
-}
-}
+    $sql = "SELECT idAdmin FROM Admin WHERE cin = '$myusername' and pass = '$mypassword'";
+    $result = mysqli_query($db,$sql);
+    $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+    $active = $row['active'];
+    if(mysqli_num_rows($result)>0) {
+        session_start();
+        $_SESSION['login_user'] = $myusername;
+        $_SESSION["site"] = "1" ;
+        header("location: welcome1.php");
+    }else if (mysqli_num_rows($result)<=0){
+     //test si les donne recuperer se sont des donnees de Client
+        $sql = "SELECT idclient FROM Client WHERE cin = '$myusername' and pass = '$mypassword'";
+        $result = mysqli_query($db,$sql);
+        $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+        $active = $row['active'];
+        if(mysqli_num_rows($result)>0){
+            session_start();
+            $_SESSION['login_user'] = $myusername;
+            $_SESSION["site"] = "2" ;
+            header("location: welcome2.php");
+        }else{
+            $sql = "SELECT idEmp FROM Employe WHERE cin = '$myusername' and pass = '$mypassword'";
+            $result = mysqli_query($db,$sql);
+            $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+            $active = $row['active'];
+            if(mysqli_num_rows($result)>0){
+                session_start();
+                $_SESSION['login_user'] = $myusername;
+                $_SESSION["site"] = "3" ;
+                header("location: welcome3.php");
+            }else{
+                $error = "Your Login Name or Password is invalid";
+            }
+        }
+    }
+ }
 }else{
     header("location: welcome".$site.".php");
 }
 ?>
-<html lang="en">
+<html>
 <head>
-    <title>Login Page</title>
 
-    <style type = "text/css">
-        body {
-            font-family:Arial, Helvetica, sans-serif;
-            font-size:14px;
-        }
-        label {
-            font-weight:bold;
-            width:100px;
-            font-size:14px;
-        }
-        .box {
-            border:#666666 solid 1px;
-        }
-    </style>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
 </head>
+<body >
+<center>
+<div >
+    <div >
+        <div class="container"><b>Login</b>
 
-<body bgcolor = "#FFFFFF">
+        <div id="login-form">
 
-<div align = "center">
-    <div style = "width:300px; border: solid 1px #333333; " align = "left">
-        <div style = "background-color:#333333; color:#FFFFFF; padding:3px;"><b>Login</b></div>
+            <form action = "" method = "post" id="login-form"  role="form" style="display: block " >
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                        <input type = "text" name = "username"   placeholder="Numero carte Cin" class = "form-control"  />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                        <input type = "password" name = "password" placeholder="Mots de Passe" class = "form-control" />
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-block btn-primary"  value = " Submit ">login</button><br />
+                    </div>
 
-        <div style = "margin:30px">
 
-            <form action = "" method = "post">
-                <label>UserName  :</label><input type = "text" name = "username" class = "box"/><br /><br />
-                <label>Password  :</label><input type = "password" name = "password" class = "box" /><br/><br />
-                <input type = "submit" value = " Submit "/><br />
             </form>
 
             <div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php echo $error; ?></div>
 
         </div>
+        <h5><a href="register.php">Register</a></h5>
+    </div>
     </div>
 </div>
+</center>
 </body>
 </html>

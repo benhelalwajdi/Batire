@@ -1,6 +1,8 @@
 <?php
 include '../config/session.php' ;
+include '../config/config.php' ;
 $site=$_SESSION["site"] ;
+$cin = $_SESSION['login_user'] ;
 if($site >= 1){
     if($site==2){
         $var = "http://localhost:8888/Batire/vue/welcome" . $site . ".php";
@@ -20,71 +22,68 @@ function Redirect($url, $permanent = false)
 }
 
 ?>
-<html">
+<html>
 
 <head>
     <title>Welcome Client </title>
     <link rel="stylesheet" href="../vue/Css/Style.css" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            load_data();
+            function load_data(query)
+            {
+                $.ajax({
+                    url:"clientres.php",
+                    method:"post",
+                    data:{query:query},
+                    success:function(data)
+                    {
+                        $('#result').html(data);
+                    }
+                });
+            }
 
+            $('#search_text').keyup(function(){
+                var search = $(this).val();
+                if(search != '')
+                {
+                    load_data(search);
+                }
+                else
+                {
+                    load_data();
+                }
+            });
+        });
+    </script>
 
 </head>
 
 <body>
+<center>
 <h1>Welcome Client</h1>
 
 <h2><a href = "logout.php">Sign Out</a></h2>
-<center>
+<div class="container">
 
     <div id="header">
-        <div id="content">
-            <label>Liste de Client</label></div>
-    </div>
+        <span class="input-group-addon">Recherche</span>
+        <input type="text" name="search_text" id="search_text" placeholder="Recherche par le description ou bien par le numero de document" class="form-control" />
 
-    <div id="body">
-        <div id="content">
-            <table align="center">
-                <th>Description de dossier</th>
-                <th>Numero de dossier</th>
-                <th colspan="2">Etat</th>
-                </tr>
-                <?php
-                $sql_query="SELECT * FROM Document where idDoc = 
-                (select idDoc from DocClient where idClient = (select cin from Client ))";
-                $result_set=mysqli_query($db,$sql_query);
-                while($row=mysqli_fetch_row($result_set))
-                {
-                    ?>
-                    <tr>
-                        <td><?php echo $row[1] ?></td>
-                        <td align="center"><?php echo $row[7] ?></td>
-                        <?php
-                            if($row[2]==1){
-                                ?>
-                                <td align="center">en attente </td>
-                        <?php
-                            }elseif($row[2]==2){
-                                ?>
-                                <td align="center" >en traitement </td></td>
-                        <?php
-                            }elseif($row[2]==3){
-                                ?>
-                                <td align="center" >termine avec succée  </td></td>
-                                <?php
-                            }
-                            else {
-                                ?>
-                                <td align="center" >termine avec un problem </td></td>
-                                <?php
-                            }
-                        ?>
-                    </tr>
-                    <?php
-                }
-                ?>
-            </table>
+    </div> <div class="form-group">
+        <div class="input-group">
         </div>
     </div>
+    <br />
+    <div id="result"></div>
+</div>
+<div style="clear:both "></div>
+<br />
 
+<br />
+<br />
+<br />
 </center>
 </body>
 
