@@ -29,7 +29,8 @@ write_log("List Document by".$_SESSION['idEmp'],"/Applications/MAMP/htdocs/Batir
 
         <div class="input-group">
             <span class="input-group-addon">Recherche</span>
-            <input type="text" name="search_text" id="search_text" placeholder="Recherche par le Nom ou bien par le Carte Identité de l'Employe" class="form-control" />
+            <input type="text" name="search_text" id="search_text"
+                   placeholder="Recherche par (description, Nom, prenom, Carte Identité ) de l'Employe" class="form-control" />
         </div>
     </div>
     <br />
