@@ -55,7 +55,7 @@ if(isset($_POST['btn-update']))
 }
 if(isset($_POST['btn-cancel']))
 {
-    header("Location: listEmp.php");
+    header("Location: listHistorique.php");
 }
 ?>
 <html>

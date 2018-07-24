@@ -11,26 +11,28 @@ if(!isset($_SESSION['login_user'])){
     $mypassword = mysqli_real_escape_string($db,$_POST['password']);
 
 //test si les donne recuperer se sont des donnees de Admin
-    $sql = "SELECT idAdmin FROM Admin WHERE cin = '$myusername' and pass = '$mypassword'";
-    $result = mysqli_query($db,$sql);
-    $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-    $active = $row['active'];
-    if(mysqli_num_rows($result)>0) {
+     $password = hash('sha256', $mypassword);
+     $sql = "SELECT idclient FROM Client WHERE cin = '$myusername' and pass = '$password'";
+     $result = mysqli_query($db,$sql);
+     $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+     $active = $row['active'];
+     if(mysqli_num_rows($result)>0) {
         session_start();
         $_SESSION['login_user'] = $myusername;
-        $_SESSION["site"] = "1" ;
-        header("location: welcome1.php");
+        $_SESSION["site"] = "2" ;
+         $_SESSION["id"] = $row["idclient"] ;
+         header("location: welcome2.php");
     }else if (mysqli_num_rows($result)<=0){
      //test si les donne recuperer se sont des donnees de Client
-        $sql = "SELECT idclient FROM Client WHERE cin = '$myusername' and pass = '$mypassword'";
-        $result = mysqli_query($db,$sql);
-        $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-        $active = $row['active'];
-        if(mysqli_num_rows($result)>0){
+         $sql = "SELECT idAdmin FROM Admin WHERE cin = '$myusername' and pass = '$mypassword'";
+         $result = mysqli_query($db,$sql);
+         $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+         $active = $row['active'];
+         if(mysqli_num_rows($result)>0){
             session_start();
             $_SESSION['login_user'] = $myusername;
-            $_SESSION["site"] = "2" ;
-            header("location: welcome2.php");
+            $_SESSION["site"] = "1" ;
+            header("location: welcome1.php");
         }else{
             $sql = "SELECT idEmp FROM Employe WHERE cin = '$myusername' and pass = '$mypassword'";
             $result = mysqli_query($db,$sql);

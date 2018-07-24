@@ -3,6 +3,7 @@ include '../config/session.php' ;
 include '../config/config.php' ;
 $site=$_SESSION["site"] ;
 $cin = $_SESSION['login_user'] ;
+echo "<script>console.log('pass ".$_SESSION["id"]."');</script>";
 if($site >= 1){
     if($site==2){
         $var = "http://localhost:8888/Batire/vue/welcome" . $site . ".php";
@@ -63,8 +64,8 @@ function Redirect($url, $permanent = false)
 <body>
 <center>
 <h1>Welcome Client</h1>
-
-<h2><a href = "logout.php">Sign Out</a></h2>
+    <td align="center"><a href="javascript:edit_id('<?php echo $_SESSION["id"]; ?>')">Modifier vos coordonée</a></td>
+    <h2><a href = "logout.php">Sign Out</a></h2>
 <div class="container">
 
     <div id="header">
@@ -86,5 +87,13 @@ function Redirect($url, $permanent = false)
 <br />
 </center>
 </body>
-
+<script type="text/javascript">
+    function edit_id(id)
+    {
+        if(confirm('vous étes sur de modifier vos donnée ?'))
+        {
+            window.location.href='updatecl.php?edit_id='+id;
+        }
+    }
+</script>
 </html>

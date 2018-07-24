@@ -34,8 +34,8 @@ function Redirect($url, $permanent = false)
 </h1>
 <h3><a href="./Employe/addEmp.php">Ajout d'un employer</a></h3>
 <h3><a href="Employe/listEmp.php">liste des employer</a></h3>
-<h3><a>Consulter les historique </a></h3>
-<h3><a href="DownloadLog.php">telecharger le fichier log</a></h3>s
+<h3><a href="listHistorique.php">Consulter les historique </a></h3>
+<h3><a href="DownloadLog.php">telecharger le fichier log</a></h3>
 <h><a href = "logout.php">Sign Out</a></h>
 </body>
 </html>
