@@ -25,7 +25,7 @@ write_log("List Document by".$_SESSION['idEmp'],"/Applications/MAMP/htdocs/Batir
 
     </div> <div class="form-group">
         <br>
-        <a href="../welcome1.php">Retour a profile</a>
+        <a href="../vue/welcome1.php">Retour a profile</a>
 
         <div class="input-group">
             <span class="input-group-addon">Recherche</span>

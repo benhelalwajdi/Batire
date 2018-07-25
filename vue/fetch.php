@@ -61,8 +61,6 @@ if(mysqli_num_rows($result) > 0)
 				    <td>'.$rowEmp["Prenom"].'</td>
 				    <td>'.$rowEmp["cin"].'</td>
 				    <td>'.$row["des"].'</td>
-				    <td align="center"><a href="javascript:edit_id('.$row["idEmp"].')">edit Employe</a></td>
-                    
 			    </tr>
 		        ';
 	        }
